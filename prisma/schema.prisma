@@ -1,0 +1,168 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/**
+ * Modelos y tablas *
+ */
+/**
+ * pnpx prisma migrate dev para los migrations
+ */
+
+/**
+ * Usuario sera el dueño del sistema
+ */
+model Usuario {
+  id            Int        @id @default(autoincrement())
+  email         String     @unique
+  nombre        String
+  password      String
+  logoSistema   String?
+  nombreSistema String     @unique
+  avatar        String?
+  role          Role       @default(Admin)
+  createdAt     DateTime   @default(now())
+  // Un usuario va a tener varios clientes 
+  clientes      Cliente[]
+  // Un usuario va a tener varias categorias 
+  categorias    Category[]
+  // Un usuario va a tener muchos productos
+  productos     Product[]
+  // Un usuario va a tener muchos pedidos 
+  pedidos       Pedido[]
+  // Un usuario va a tener muchas ventas 
+  ventas        Venta[]
+}
+
+model Cliente {
+  id        Int           @id @default(autoincrement())
+  nombre    String
+  ciudad    String
+  direccion String?
+  status    StatusCliente @default(Activo)
+  createdAt DateTime      @default(now())
+  Usuario   Usuario?      @relation(fields: [usuarioId], references: [id])
+  usuarioId Int?
+  // Un cliente puede tener muchos pedidos 
+  pedidos   Pedido[]
+  // Un cliente puede tener varias ventas 
+  ventas    Venta[]
+}
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  nombre    String
+  createdAt DateTime  @default(now())
+  Usuario   Usuario   @relation(fields: [usuarioId], references: [id])
+  usuarioId Int
+  // Una categoria puede pertenecer a muchos productos 
+  productos Product[]
+}
+
+model Product {
+  id         Int                 @id @default(autoincrement())
+  titulo     String
+  precio     Float               @default(0.00)
+  costo      Float               @default(0.00)
+  stock      Int                 @default(0)
+  color      String
+  Usuario    Usuario             @relation(fields: [usuarioId], references: [id])
+  usuarioId  Int
+  Category   Category            @relation(fields: [categoryId], references: [id])
+  categoryId Int
+  // Un producto puede pertenecer a varios pedidos 
+  pedidos    ProductosEnPedido[]
+  // Un producto puede pertenecer a varias ventas 
+
+  ProductosEnVenta ProductosEnVenta[]
+}
+
+model Pedido {
+  id            Int                 @id @default(autoincrement())
+  Cliente       Cliente             @relation(fields: [clienteId], references: [id])
+  clienteId     Int
+  Usuario       Usuario             @relation(fields: [usuarioId], references: [id])
+  usuarioId     Int
+  productos     ProductosEnPedido[]
+  createdAt     DateTime            @default(now())
+  fechaEntrega  DateTime
+  status        StatusPedido        @default(pending)
+  totalPrice    Float
+  totalProducts Int
+  nota          String?
+  metodoPago    MetodoPago          @default(MercadoPago)
+  descuento Int @default(0)
+}
+
+// Tabla intermedia entre productos y pedidos
+model ProductosEnPedido {
+  id        Int     @id @default(autoincrement())
+  pedido    Pedido  @relation(fields: [pedidoId], references: [id])
+  pedidoId  Int
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+  cantidad  Int     @default(1)
+
+  @@unique([pedidoId, productId]) //evitar duplicados del mismo producto
+}
+
+model Venta {
+  id          Int        @id @default(autoincrement())
+  Usuario     Usuario    @relation(fields: [usuarioId], references: [id])
+  usuarioId   Int
+  Cliente     Cliente    @relation(fields: [clienteId], references: [id])
+  clienteId   Int
+  precioTotal Float
+  ganancias   Float?
+  fecha       DateTime
+  metodoPago  MetodoPago
+  // Una venta puede tener varios productos 
+  ProductosEnVenta ProductosEnVenta[]
+  descuento Int @default(0)
+}
+
+model ProductosEnVenta {
+  id        Int     @id @default(autoincrement())
+  venta     Venta   @relation(fields: [ventaId], references: [id])
+  ventaId   Int
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+  cantidad  Int     @default(1)
+
+  @@unique([ventaId, productId]) // Evita duplicados del mismo producto en una venta
+}
+
+enum Role {
+  Admin
+  Superadmin
+}
+
+enum StatusCliente {
+  Activo
+  Inactivo
+}
+
+enum StatusPedido {
+  pending
+  inProgress
+  completed
+}
+
+enum MetodoPago {
+  TarjetaCredito
+  TarjetaDebito
+  MercadoPago
+  Efectivo
+  Transferencia
+}
