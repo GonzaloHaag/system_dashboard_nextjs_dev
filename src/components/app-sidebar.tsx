@@ -5,7 +5,6 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupConte
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NavUser } from "./nav-user";
-import Image from "next/image";
 
 const items = [
     {
@@ -44,8 +43,8 @@ export function AppSideBar() {
     const pathname = usePathname();
       const data = {
         user: {
-          name: "Sofia peralta",
-          email: "elpochomates13@gmail.com",
+          name: "Test example",
+          email: "test@example.com",
           avatar: "/avatars/shadcn.jpg",
         },
       }
@@ -53,7 +52,8 @@ export function AppSideBar() {
         <Sidebar collapsible="icon" variant="floating">
             <SidebarHeader>
                 <div className="flex items-center gap-x-2">
-                    <Image src={'/images/logo_pocho.webp'} alt="logo pocho mates" width={40} height={40} className="aspect-square" />
+                    {/* <Image src={'/images/LOGOGH.webp'} priority alt="logo gonzalo haag" width={120} height={40} /> */}
+                    <span className="text-xl">GH</span>
                 </div>
             </SidebarHeader>
 

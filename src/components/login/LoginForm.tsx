@@ -25,8 +25,8 @@ export const LoginForm = () => {
   }
   return (
     <form onSubmit={handleSubmit(formLoginOnSubmit)} className="flex flex-col gap-y-4 mt-4 w-full text-sm">
-      <input autoFocus {...register('email',{ required:true })} type="email" placeholder="Email" required className='w-full outline-none border border-neutral-200 transition-colors duration-200 focus:border-neutral-900 py-2 px-4 rounded' />
-      <input type='password' {...register('password',{ required:true })} minLength={5} placeholder='Contraseña' required className='w-full outline-none border border-neutral-200 transition-colors duration-200 focus:border-neutral-900 py-2 px-4 rounded' />
+      <input autoFocus {...register('email',{ required:true })} defaultValue={'test@example.com'} type="email" placeholder="Email" required className='w-full outline-none border border-neutral-200 transition-colors duration-200 focus:border-neutral-900 py-2 px-4 rounded' />
+      <input type='password' {...register('password',{ required:true })} defaultValue={'prueba123'} minLength={5} placeholder='Contraseña' required className='w-full outline-none border border-neutral-200 transition-colors duration-200 focus:border-neutral-900 py-2 px-4 rounded' />
 
       <Button disabled={isSubmitting} type='submit' title='Ingresar'>
         {

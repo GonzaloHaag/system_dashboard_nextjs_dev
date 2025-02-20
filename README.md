@@ -15,11 +15,7 @@ pnpm prisma migrate dev
 ```
 pnpm prisma generate
 ```
-7. Ejecutar el seed para llenar la base con ususarios de prueba
-```
-pnpm run seed
-```
-8. Correr app en desarrollo
+7. Correr app en desarrollo
 ```
 pnpm run dev
 ```
