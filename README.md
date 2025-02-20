@@ -18,7 +18,6 @@ pnpm prisma generate
 ```
 pnpm run seed
 ```
-```
 8. Correr app en desarrollo
 ```
 pnpm run dev
