@@ -5,6 +5,7 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupConte
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NavUser } from "./nav-user";
+import { useSession } from "next-auth/react";
 
 const items = [
     {
@@ -39,15 +40,8 @@ const items = [
     },
 ]
 export function AppSideBar() {
-
-    const pathname = usePathname();
-      const data = {
-        user: {
-          name: "Test example",
-          email: "test@example.com",
-          avatar: "/avatars/shadcn.jpg",
-        },
-      }
+    const { data,status } = useSession();
+    const pathname = usePathname();   
     return (
         <Sidebar collapsible="icon" variant="floating">
             <SidebarHeader>
@@ -81,7 +75,7 @@ export function AppSideBar() {
                 </SidebarGroup>
             </SidebarContent>
             <SidebarFooter>
-               <NavUser user={ data.user } />
+               <NavUser user={ data?.user } status={status} />
             </SidebarFooter>
         </Sidebar>
     )

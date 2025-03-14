@@ -1,5 +1,5 @@
 import { auth } from "@/auth.config";
-import { ButtonExportCsv, SearchBar, SkeletonTableVentas, TableVentas } from "@/components";
+import { ButtonExportCsvVentas, SearchBar, SkeletonTableVentas, TableVentas } from "@/components";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -30,7 +30,7 @@ export default async function VentasPage(props: {
       <div className='w-full flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between sm:h-10'>
         <SearchBar placeholder={'Buscar venta...'} />
         <div className='flex items-center gap-x-4 h-full'>
-          <ButtonExportCsv />
+           <ButtonExportCsvVentas userId={ userId } />
         </div>
       </div>
       <Suspense key={searchQuery} fallback={<SkeletonTableVentas />}>

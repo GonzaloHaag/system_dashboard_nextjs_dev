@@ -1,5 +1,5 @@
 import { auth } from "@/auth.config";
-import { SearchBarAndButtons, SkeletonTableClients, TableClients } from "@/components";
+import { ButtonExportCsvClients, SearchBarAndButtons, SkeletonTableClients, TableClients } from "@/components";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -27,7 +27,9 @@ export default async function ClientesPage(props: {
   const page = searchParams?.page ? parseInt(searchParams.page) : 1;
   return (
     <section className="w-full flex flex-col gap-y-6">
-      <SearchBarAndButtons placeholder="Buscar cliente..." textButton="Nuevo cliente" linkHref='/clientes/nuevo-cliente' />
+      <SearchBarAndButtons placeholder="Buscar cliente..." textButton="Nuevo cliente" linkHref='/clientes/nuevo-cliente'>
+          <ButtonExportCsvClients userId={ userId } />
+      </SearchBarAndButtons>
       <Suspense key={searchQuery} fallback={<SkeletonTableClients />}>
         <TableClients userId={userId} searchQuery={searchQuery} page={page} />
       </Suspense>

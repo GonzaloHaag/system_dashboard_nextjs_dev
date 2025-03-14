@@ -2,7 +2,6 @@ export { LoginForm } from './login/LoginForm';
 export { SearchBar } from './SearchBar';
 export { SearchBarAndButtons } from './SearchBarAndButtons';
 export { ButtonEdit } from './ButtonEdit';
-export { ButtonExportCsv } from './ButtonExportCsv';
 export { Pagination } from './Pagination';
 /** Clients */
 export { TableClients } from './clients/TableClients';
@@ -10,12 +9,14 @@ export { SkeletonTableClients } from './clients/SkeletonTableClients';
 export { FormAddClient } from './clients/FormAddClient';
 export { FormEditClient } from './clients/FormEditClient';
 export { ButtonDeleteClient } from './clients/ButtonDeleteClient';
+export { ButtonExportCsvClients } from './clients/ButtonExportCsvClients';
 /** Categorias */
 export { FormAddCategory } from './categorias/FormAddCategory';
 export { FormEditCategory } from './categorias/FormEditCategory';
 export { TableCategories } from './categorias/TableCategories';
 export { SkeletonTableCategories } from './categorias/SkeletonTableCategories';
 export { ButtonDeleteCategory } from './categorias/ButtonDeleteCategory';
+export { ButtonExportCsvCategories } from './categorias/ButtonExportCsvCategories';
 /** Dashboard */
 export { DashboardPageContainer } from './dashboard/DashboardPageContainer';
 export { DashboardPageContainerSkeleton } from './dashboard/DashboardPageContainerSkeleton';
@@ -32,6 +33,7 @@ export { SkeletonTableProducts } from './productos/SkeletonTableProducts';
 export { FormEditProduct } from './productos/FormEditProduct';
 export { ButtonDeleteProduct } from './productos/ButtonDeleteProduct';
 export { FilterCategory } from './productos/FilterCategory';
+export { ButtonExportCsvProducts } from './productos/ButtonExportCsvProducts';
 /** Pedidos */
 export { FormAddPedido } from './pedidos/FormAddPedido';
 export { FormEditPedido } from './pedidos/FormEditPedido';
@@ -46,3 +48,6 @@ export { TableVentas } from './ventas/TableVentas';
 export { SkeletonTableVentas } from './ventas/SkeletonTableVentas';
 export { ButtonDeleteVenta  } from './ventas/ButtonDeleteVenta';
 export { ButtonViewVenta } from './ventas/ButtonViewVenta';
+export { ButtonExportCsvVentas } from './ventas/ButtonExportCsvVentas';
+
+export { Provider } from './provider/Provider';

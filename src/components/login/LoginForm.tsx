@@ -19,9 +19,9 @@ export const LoginForm = () => {
       toast.error(respuesta.message);
       return;
     }
-    // Si no retorno es porque esta ok 
-    toast.success('Login exitoso!')
-    router.replace('/dashboard');
+    // Si no retorno es porque esta ok
+    router.replace('/dashboard'); 
+    toast.success('Login exitoso!');
   }
   return (
     <form onSubmit={handleSubmit(formLoginOnSubmit)} className="flex flex-col gap-y-4 mt-4 w-full text-sm">

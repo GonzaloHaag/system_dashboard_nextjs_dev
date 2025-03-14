@@ -23,7 +23,7 @@ export default async function PedidosPage(props: {
     const searchQuery = searchParams?.search ?? '';
     return (
         <section className="w-full flex flex-col gap-y-6">
-            <SearchBarAndButtons placeholder="Buscar pedido..." textButton="Nuevo pedido" linkHref='/pedidos/nuevo-pedido' />
+            <SearchBarAndButtons placeholder="Buscar pedido..." textButton="Nuevo pedido" linkHref='/pedidos/nuevo-pedido'></SearchBarAndButtons>
             <hr />
             <span className="text-sm text-gray-500">Nota* Los pedidos completados se moveran a ventas. Puedes eliminarlos sin problemas.</span>
             <Suspense key={ searchQuery } fallback={<PedidosFetcherSkeleton />}>

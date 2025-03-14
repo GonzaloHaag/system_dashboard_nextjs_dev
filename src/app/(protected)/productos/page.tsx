@@ -1,5 +1,5 @@
 import { auth } from "@/auth.config";
-import { SearchBarAndButtons, SkeletonTableProducts,TableProducts } from "@/components";
+import { ButtonExportCsvProducts, SearchBarAndButtons, SkeletonTableProducts,TableProducts } from "@/components";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -28,7 +28,9 @@ export default async function ProductosPage(props:{
   const page = searchParams?.page ? parseInt(searchParams.page) : 1;
   return (
     <section className="w-full flex flex-col gap-y-6">
-      <SearchBarAndButtons placeholder="Buscar producto..." textButton="Nuevo producto" linkHref='/productos/nuevo-producto' buttonImportarCsv={true} />
+      <SearchBarAndButtons placeholder="Buscar producto..." textButton="Nuevo producto" linkHref='/productos/nuevo-producto'>
+       <ButtonExportCsvProducts userId={ userId } />
+      </SearchBarAndButtons>
       <Suspense key={ searchQuery } fallback={<SkeletonTableProducts />}>
         <TableProducts userId={userId} searchQuery={ searchQuery } page={ page } />
       </Suspense>
